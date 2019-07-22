@@ -1,16 +1,14 @@
 import * as express from 'express';
 import * as path from 'path';
-
+import * as bodyParser from "body-parser";
+import * as config from "./config";
+import userRouter from './areas/users/controller';
 var app = express();
-app.set('view engine', 'pug')
-app.set('views', path.join(__dirname, '/views'));
-app.use('/static', express.static('public'))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-app.get('*', (req, res) => {
-    res.render('main.pug', {
-        title: 'My first express app',
-        loading: 'Loading...???'
-    });
+app.use('/api/users', userRouter);
+
+app.listen(config.port, () => {
+    console.log(`app is runnint: http://localhost:${config.port}`)
 });
-
-app.listen(9000);
