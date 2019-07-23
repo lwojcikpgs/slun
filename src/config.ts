@@ -1,6 +1,5 @@
-import * as dotenv from 'dotenv';
+import 'dotenv/config';
 import { cleanEnv, port as isPort, str } from 'envalid';
-dotenv.config();
 
 cleanEnv(process.env, {
     PORT: isPort(),
