@@ -5,13 +5,11 @@ import isAuthorized from '../../utils/middlewares/isAuthorized';
 import { userRepository } from '../../repository/userRepository';
 
 var router = express.Router();
-let fakeUsersList: UserDto[] = [];
 router.use(isAuthorized());
 
 router.post('/', viewModelValidator(UserDto), async (req: express.Request & { viewModel: UserDto }, res) => {
-    fakeUsersList = [...fakeUsersList, req.viewModel];
-
-    res.send({ id: fakeUsersList.length });
+    const dbModel = await userRepository.create(req.viewModel);
+    res.send({ id: dbModel._id });
 });
 
 router.get('/:id', async (req: express.Request, res) => {

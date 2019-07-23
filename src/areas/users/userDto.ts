@@ -1,13 +1,14 @@
 import { IsString, IsInt, Min, Max, Length } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { IUserModel } from '../../types/user';
 
-export default class UserDto {
+export default class UserDto implements IUserModel {
     @IsString()
-    @Length(10, 20)
+    @Length(1, 20)
     firstName: string;
 
     @IsString()
-    @Length(10, 20)
+    @Length(1, 20)
     lastName: string;
 
     @Transform((value) => +value)
